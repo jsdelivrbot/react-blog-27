@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux'
 
 import { fetchPosts } from '../actions/index'
 
-class PostIndex extends Component{
+class PostsIndex extends Component{
   componentWillMount() {
     console.log('Call Action creator to fetch blog posts.', this.props);
     this.props.fetchPosts();
   }
 
-  renderBlog ({id, title, categories}) {
+  renderPost ({id, title, categories}) {
     return(
       <tr key={id} valign="bottom">
         <td>{title}</td>
@@ -35,7 +35,7 @@ class PostIndex extends Component{
             </tr>          
           </thead>
           <tbody>
-            {this.props.posts.map(post => renderPost(post))}
+            {this.props.posts.map(post => this.renderPost(post))}
           </tbody>
         </table>
       </div>
@@ -43,4 +43,4 @@ class PostIndex extends Component{
   }
 };
 
-export default connect(null, {fetchPosts: fetchPosts})(PostIndex);
+export default connect(null, {fetchPosts: fetchPosts})(PostsIndex);
