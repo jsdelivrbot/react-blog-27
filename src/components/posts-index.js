@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
+import { Link } from 'react-router'
 import { fetchPosts } from '../actions/index'
 
 class PostsIndex extends Component{
@@ -10,19 +10,25 @@ class PostsIndex extends Component{
     this.props.fetchPosts();
   }
 
-  renderPost ({id, title, categories}) {
-    return(
-      <tr key={id} valign="bottom">
-        <td>{title}</td>
-        <td>{categories}</td>
-      </tr>
-    );
+  renderPosts () {
+    console.log(this.props);
+    this.props.posts.map( (post) => {
+      return(
+        <tr key={post.id} valign="bottom">
+          <td>{post.title}</td>
+          <td>{post.categories}</td>
+        </tr>
+      );
+    });
   }
 
   render(){
     console.log(this.props);
     return(
       <div>
+        <div className="text-xs-right">
+          <Link to="/posts/new" className="btn btn-primary">Add a Post</Link>
+        </div>
         <table className="table table-hover">
           <thead>
             <tr>
@@ -35,7 +41,7 @@ class PostsIndex extends Component{
             </tr>          
           </thead>
           <tbody>
-            {this.props.posts.map(post => this.renderPost(post))}
+          {this.renderPosts()}
           </tbody>
         </table>
       </div>
@@ -43,4 +49,8 @@ class PostsIndex extends Component{
   }
 };
 
-export default connect(null, {fetchPosts: fetchPosts})(PostsIndex);
+const mapStateToProps = (state) => {
+  return {posts: state.posts.all}
+}
+
+export default connect(mapStateToProps,  {fetchPosts: fetchPosts})(PostsIndex);
