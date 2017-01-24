@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchPosts } from '../actions/index'
+
+import { fetchPosts, selectPost, deselectPost } from '../actions/index'
+import SelectedPostsList from './posts-selected-list'
 
 class PostsIndex extends Component{
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchPosts();
+  }
+
+  handlePostSelect({id}, event) {
+    event.target.checked ? 
+      this.props.selectPost(id) : 
+      this.props.deselectPost(id)
   }
 
   renderPosts () {
@@ -20,6 +28,14 @@ class PostsIndex extends Component{
             <td>
               <span className="pull-xs-right">{post.categories}</span>
             </td>
+            <td>
+              <input 
+                className="pull-xs-right" 
+                type="checkbox" 
+                value={post.title}
+                onChange={this.handlePostSelect.bind(this, post)}/>
+            </td>
+            
         </tr>
       );
     });
@@ -31,6 +47,11 @@ class PostsIndex extends Component{
         <div className="text-xs-right">
           <Link to="/posts/new" className="btn btn-primary">Add a Post</Link>
         </div>
+        <div>
+          <h3>Selected Posts </h3>
+          <SelectedPostsList/>
+        </div>
+        <h3>All Posts </h3>
         <table className="table table-hover">
           <thead>
             <tr>
@@ -39,6 +60,9 @@ class PostsIndex extends Component{
               </th>
               <th>
                 Categories
+              </th>
+              <th>
+                Select
               </th>
             </tr>          
           </thead>
@@ -55,4 +79,4 @@ const mapStateToProps = (state) => {
   return { posts: state.posts.all };
 };
 
-export default connect(mapStateToProps,  {fetchPosts})(PostsIndex);
+export default connect(mapStateToProps,  {fetchPosts, selectPost, deselectPost})(PostsIndex);

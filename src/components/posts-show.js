@@ -31,7 +31,8 @@ class PostsShow extends Component {
         <button 
           className={"btn-danger pull-xs-right"}
           onClick={this.onDeleteClick.bind(this)}>
-          Delete</button>
+          Delete
+        </button>
       </div>
     );
   }
