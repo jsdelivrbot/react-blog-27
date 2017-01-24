@@ -7,7 +7,7 @@ import promise from 'redux-promise'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducers from './reducers';
-import routes from './routes'
+import routes from './routes/index'
 
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(promise),
