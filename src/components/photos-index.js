@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect }  from 'react-redux'
+import { Link } from 'react-router'
 
 class PhotosIndex extends Component {
   renderPhotos(){
-    console.log('PhotosIndex', this.props.photos);
     return this.props.photos.map( photo => {
       return (
         <li className="list-group-item" key={photo.id}>
@@ -15,9 +15,12 @@ class PhotosIndex extends Component {
 
   render() {
     return (
-      <ul className="list-group">
-        {this.renderPhotos()}
-      </ul>
+        <div className="text-xs-right">
+          <Link to="/" className="btn btn-link">Posts</Link>
+          <ul className="list-group">
+              {this.renderPhotos()}
+          </ul>
+        </div>
     );
   }
 }

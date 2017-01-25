@@ -18,9 +18,10 @@ class PostsIndex extends Component{
   }
 
   renderPosts () {
+
     return this.props.posts.map( (post) => {
       return(
-        <tr key={post.id} valign="bottom">
+          <tr key={post.id} valign="bottom">
             <td>
               <Link to={"/posts/" + post.id}> 
                 <strong> {post.title} </strong> 
@@ -36,17 +37,20 @@ class PostsIndex extends Component{
                 value={post.title}
                 onChange={this.handlePostSelect.bind(this, post)}/>
             </td>
-            
-        </tr>
+          </tr>
       );
     });
   }
 
   render(){
+
     return(
       <div>
         <div className="text-xs-right">
           <Link to="/posts/new" className="btn btn-primary">Add a Post</Link>
+        </div>
+        <div className="text-xs-right">
+          <Link to="/photos" className="btn btn-link">Photos</Link>
         </div>
         <div>
           <h3>Selected Posts </h3>
@@ -68,7 +72,7 @@ class PostsIndex extends Component{
             </tr>          
           </thead>
           <tbody>
-          {this.renderPosts()}
+              {this.renderPosts()}
           </tbody>
         </table>
       </div>
