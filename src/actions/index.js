@@ -6,9 +6,11 @@ export const FETCH_POST = 'FETCH_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const SELECT_POST = 'SELECT_POST'
 export const DESELECT_POST = 'DESELECT_POST'
+export const FETCH_PHOTOS = 'FETCH_PHOTOS'
 
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=asdfasdfasdf';
+const PHOTOS_URL = 'http://'
 
 export const deletePost = (id) => {
   const request = axios.delete(`${ROOT_URL}/posts/${id}/${API_KEY}`)
@@ -32,8 +34,8 @@ export const fetchPosts = () => {
   }
 }
 
-export const createPost = (props) => {
-  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, props);
+export const createPost = ({values}) => {
+  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values);
 
   return {
     type: CREATE_POST,
@@ -52,5 +54,14 @@ export const deselectPost = (id) => {
   return {
     type: DESELECT_POST,
     payload: id
+  }
+}
+
+export const fetchPhotos = () => {
+  const request = axios.get('http://jsonplaceholder.typicode.com/photos?albumId=41');
+
+  return {
+    type: FETCH_PHOTOS,
+    payload: request
   }
 }

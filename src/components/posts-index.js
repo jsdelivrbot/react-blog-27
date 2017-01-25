@@ -7,6 +7,7 @@ import SelectedPostsList from './posts-selected-list'
 
 class PostsIndex extends Component{
   componentDidMount() {
+    console.log('componentDidMount');
     this.props.fetchPosts();
   }
 
